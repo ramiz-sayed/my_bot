@@ -1,4 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
+cmake_policy(SET CMP0009 NEW)  # Set policy to avoid symlink warnings
+
 project(my_bot)
 
 # Default to C99
@@ -33,20 +35,15 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-# Declare your executable and its source files
-# Add your ROS 2 nodes or executables here, e.g.:
-# add_executable(my_node src/my_node.cpp)
-# ament_target_dependencies(my_node rclcpp)
-
 # Install your nodes, launch files, configuration files, etc.
 install(
-  DIRECTORY config launch worlds
+  DIRECTORY config description launch worlds 
   DESTINATION share/${PROJECT_NAME}
 )
 
 # Install your executable, if you have one
-# install(TARGETS my_node
-#   DESTINATION lib/${PROJECT_NAME}
+# install(DIRECTORY launch models params rviz urdf worlds
+#   DESTINATION share/${PROJECT_NAME}
 # )
 
 # Add further install statements for other resources like parameters, scripts, etc.

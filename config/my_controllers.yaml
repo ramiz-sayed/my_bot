@@ -1,0 +1,24 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 50  # The update rate for the controller manager
+
+    diff_cont:
+      type: "diff_drive_controller/DiffDriveController"
+
+    joint_broad:
+      type: "joint_state_broadcaster/JointStateBroadcaster"
+
+diff_cont:
+  ros__parameters:
+    publish_rate: 50.0  # Rate at which the robot's velocity is updated
+
+    base_frame_id: base_link  # Ensure this matches with the robot's frame
+
+    left_wheel_names: ['left_wheel_joint']  # Joint name for left wheel
+    right_wheel_names: ['right_wheel_joint']  # Joint name for right wheel
+    wheel_separation: 0.297  # Ensure this matches with Gazebo plugin
+    wheel_radius: 0.033  # Ensure this matches with Gazebo plugin
+
+    cmd_vel_timeout: 0.5  # Timeout for cmd_vel messages, ensures robot stops if no command is received
+
+    enable_odom_tf: true  # Publish odometry transform

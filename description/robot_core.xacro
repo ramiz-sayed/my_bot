@@ -4,587 +4,142 @@
 
   <xacro:include filename="inertial_macros.xacro"/>
 
-
-
   <material name="white">
-
      <color rgba="1 1 1 1"/>
-
   </material>
-
-
 
   <material name="blue">
-
       <color rgba="0.2 0.2 1 1"/>
-
   </material>
-
-
 
   <material name="black">
-
       <color rgba="0 0 0 1"/>
-
   </material>
 
-
-
   <!-- Base link -->
-
   <link name="base_link">
-
   </link>
-
-
 
   <!-- Chassis link -->
-
   <joint name="chassis_joint" type="fixed">
-
     <parent link="base_link"/>
-
-    <child link="chassis"/>
-
+    <child link="chassis_link"/>
     <origin xyz="-0.1 0 0"/>
-
   </joint>
 
-
-
-  <link name="chassis">
-
+  <link name="chassis_link">
     <visual>
-
       <origin xyz="0.15 0 0.075"/> 
-
       <geometry>
-
         <box size="0.3 0.3 0.15"/>
-
       </geometry>
-
       <material name="white"/>
-
     </visual>
-
     <collision>
-
       <origin xyz="0.15 0 0.075"/> 
-
       <geometry>
-
         <box size="0.3 0.3 0.15"/>
-
       </geometry>
-
     </collision>  
-
     <xacro:inertial_box mass="0.5" x="0.3" y="0.3" z="0.15">  
-
       <origin xyz="0.15 0 0.075" rpy="0 0 0"/> 
-
     </xacro:inertial_box>
-
   </link>
 
-
+  <gazebo reference="chassis_link">
+     <material>Gazebo/White</material>
+  </gazebo>
 
   <!-- Left wheel link -->
-
-  <joint name="left wheel" type="continuous">
-
+  <joint name="left_wheel_joint" type="continuous">
     <parent link="base_link"/>
-
-    <child link="left wheel"/>
-
+    <child link="left_wheel_link"/>
     <origin xyz="0 0.175 0" rpy="-${pi/2} 0 0"/> 
-
     <axis xyz="0 0 1"/>
-
   </joint>
 
-
-
-  <link name="left wheel">
-
+  <link name="left_wheel_link">
     <visual>
-
       <geometry>
-
         <cylinder radius="0.05" length="0.04"/>
-
       </geometry>
-
       <material name="blue"/>
-
     </visual>
-
     <collision>
-
       <geometry>
-
         <cylinder radius="0.05" length="0.04"/>
-
       </geometry>
-
     </collision>  
-
     <xacro:inertial_cylinder mass="0.1" radius="0.05" length="0.04">  
-
       <origin xyz="0 0 0" rpy="0 0 0"/> 
-
     </xacro:inertial_cylinder>     
-
   </link>
 
-
+  <gazebo reference="left_wheel_link">
+     <material>Gazebo/Blue</material>
+  </gazebo>
 
   <!-- Right wheel link -->
-
-  <joint name="right wheel" type="continuous">
-
+  <joint name="right_wheel_joint" type="continuous">
     <parent link="base_link"/>
-
-    <child link="right wheel"/>
-
+    <child link="right_wheel_link"/>
     <origin xyz="0 -0.175 0" rpy="${pi/2} 0 0"/> 
-
     <axis xyz="0 0 -1"/>
-
   </joint>
 
-
-
-  <link name="right wheel">
-
+  <link name="right_wheel_link">
     <visual>
-
       <geometry>
-
         <cylinder radius="0.05" length="0.04"/>
-
       </geometry>
-
       <material name="blue"/>
-
     </visual>
-
     <collision>
-
       <geometry>
-
         <cylinder radius="0.05" length="0.04"/>
-
       </geometry>
-
     </collision>   
-
     <xacro:inertial_cylinder mass="0.1" radius="0.05" length="0.04">  
-
       <origin xyz="0 0 0" rpy="0 0 0"/> 
-
     </xacro:inertial_cylinder>    
-
   </link>
 
-  
+  <gazebo reference="right_wheel_link">
+     <material>Gazebo/Blue</material>
+  </gazebo> 
 
   <!-- Caster wheel link -->
-
-  <joint name="caster wheel" type="fixed">
-
-    <parent link="chassis"/>
-
-    <child link="caster wheel"/>
-
+  <joint name="caster_wheel_joint" type="fixed">
+    <parent link="chassis_link"/>
+    <child link="caster_wheel_link"/>
     <origin xyz="0.24 0 0"/>
-
-  </joint>
-
-
-
-  <link name="caster wheel">
-
-    <visual>
-
-      <geometry>
-
-        <sphere radius="0.05"/>
-
-      </geometry>
-
-      <material name="black"/>
-
-    </visual>
-
-    <collision>
-
-      <geometry>
-
-        <sphere radius="0.05"/>
-
-      </geometry>
-
-    </collision>
-
-    <xacro:inertial_sphere mass="0.1" radius="0.05">  
-
-      <origin xyz="0 0 0" rpy="0 0 0"/> 
-
-    </xacro:inertial_sphere>    
-
-  </link>
-
-
-
-  <!-- Arm base link -->
-
-  <joint name="arm base" type="fixed">
-
-    <parent link="base_link"/>
-
-    <child link="arm base"/>
-
-    <origin xyz="0 0 0.15"/>
-
-  </joint>
-
-
-
-  <link name="arm base">
-
-    <inertial>
-
-      <origin xyz="0 0 0" rpy="0 0 0" />
-
-      <mass value="5" />
-
-      <inertia ixx="0.0014959" ixy="-9.8519E-19" ixz="3.2796E-18" iyy="0.0014601" iyz="1.1154E-17" izz="0.0025824" />
-
-    </inertial>
-
-    <visual>
-
-      <origin xyz="0 0 0" rpy="0 0 0" />
-
-      <geometry>
-
-        <box size="0.1 0.1 0.1"/>
-
-      </geometry>
-
-      <material name="blue"/>
-
-    </visual>
-
-    <collision>
-
-      <origin xyz="0 0 0" rpy="0 0 0" />
-
-      <geometry>
-
-        <box size="0.1 0.1 0.1"/>
-
-      </geometry>
-
-    </collision>
-
-  </link>
-
-
-
-  <joint name="rotary base" type="revolute">
-
-    <origin xyz="0 0 0" rpy="1.5708 0 1.4239" />
-
-    <parent link="arm base" />
-
-    <child link="rotary base" />
-
-    <axis xyz="0 1 0" />
-
-    <limit lower="0" upper="6.28" effort="300" velocity="3" />
-
-  </joint>
-
-
-
-  <link name="rotary base">
-
-    <inertial>
-
-      <origin xyz="0 0 0" rpy="0 0 0" />
-
-      <mass value="0.345672466763424" />
-
-      <inertia ixx="0.00142664471532003" ixy="9.45159540029542E-12" ixz="-3.67056134564694E-12" iyy="0.000640454796268543" iyz="-1.71339315030626E-05" izz="0.00146258575024297" />
-
-    </inertial>
-
-    <visual>
-
-      <origin xyz="0 0 0" rpy="0 0 0" />
-
-      <geometry>
-
-        <box size="0.1 0.1 0.1"/>
-
-      </geometry>
-
-      <material name="blue"/>
-
-    </visual>
-
-    <collision>
-
-      <origin xyz="0 0 0" rpy="0 0 0" />
-
-      <geometry>
-
-        <box size="0.1 0.1 0.1"/>
-
-      </geometry>
-
-    </collision>
-
-  </link>
-
-
-
-  <joint name="first link" type="revolute">
-
-    <origin xyz="0 0.050952 0" rpy="-3.1416 0 -1.7111" />
-
-    <parent link="rotary base" />
-
-    <child link="first link" />
-
-    <axis xyz="0 0 -1" />
-
-    <limit lower="0" upper="6.28" effort="300" velocity="3" />
-
-  </joint>
-
-
-
-  <link name="first link">
-
-    <inertial>
-
-      <origin xyz="0 0 0" rpy="0 0 0" />
-
-      <mass value="0.0917244894755636" />
-
-      <inertia ixx="0.000460082197829556" ixy="4.67327218891778E-05" ixz="-1.17270010366025E-06" iyy="3.52496847948704E-05" iyz="1.07881245928322E-05" izz="0.000491438723380896" />
-
-    </inertial>
-
-    <visual>
-
-      <origin xyz="0 0 0" rpy="0 0 0" />
-
-      <geometry>
-
-        <box size="0.1 0.1 0.1"/>
-
-      </geometry >
-
-
-      <material name="blue"/>
-
-    </visual>
-
-    <collision>
-
-      <origin xyz="0 0 0" rpy="0 0 0" />
-
-      <geometry>
-
-        <box size="0.1 0.1 0.1"/>
-
-      </geometry>
-
-    </collision>
-
-  </link>
-
-
-
-  <joint name="second link" type="revolute">
-
-    <origin xyz="0.021613 -0.19883 0.032" rpy="-3.1416 0 2.9584" />
-
-    <parent link="first link" />
-
-    <child link="second link" />
-
-    <axis xyz="0 0 -1" />
-
-    <limit lower="0" upper="6.28" effort="300" velocity="3" />
-
-  </joint>
-
-
-
-  <link name="second link">
-
-    <inertial>
-
-      <origin xyz="0 0 0" rpy="0 0 0" />
-
-      <mass value="0.0917244894755636" />
-
-      <inertia ixx="0.000465162178815331" ixy="-1.79041589225878E-19" ixz="-4.65868120989865E-21" iyy="3.01697038090949E-05" iyz="1.0851675343632E-05" izz="0.000491438723380896" />
-
-    </inertial>
-
-    <visual>
-
-      <origin xyz="0 0 0" rpy="0 0 0" />
-
-      <geometry>
-
-        <box size="0.1 0.1 0.1"/>
-
-      </geometry>
-
-      <material name="blue"/>
-
-    </visual>
-
-    <collision>
-
-      <origin xyz="0 0 0" rpy="0 0 0" />
-
-      <geometry>
-
-        <box size="0.1 0.1 0.1"/>
-
-      </geometry>
-
-    </collision>
-
-  </link>
-
-
-
-  <joint name="third link" type="revolute">
-
-    <origin xyz="0 -0.2 0.02" rpy="-3.1416 0 0.47882" />
-
-    <parent link="second link" />
-
-    <child link="third link" />
-
-    <axis xyz="0 0 -1" />
-
-    <limit lower="0" upper="6.28" effort="300" velocity="3" />
-
-  </joint>
-
-
-
-  <link name="third link">
-
-    <inertial>
-
-      <origin xyz="0 0 0" rpy="0 0 0" />
-
-      <mass value="0.0755747107611927" />
-
-      <inertia ixx="0.000127815368272082" ixy="-4.03187682893047E-19" ixz="-9.57147230397359E-20" iyy="4.70722047298615E-05" iyz="-5.48927005836548E-07" izz="0.000134130154314182" />
-
-    </inertial>
-
-    <visual>
-
-      <origin xyz="0 0 0" rpy="0 0 0" />
-
-      <geometry>
-
-        <box size="0.1 0.1 0.1"/>
-
-      </geometry>
-
-      <material name="blue"/>
-
-    </visual>
-
-    <collision>
-
-      <origin xyz="0 0 0" rpy="0 0 0" />
-
-      <geometry>
-
-        <box size="0.1 0.1 0.1"/>
-
-      </geometry>
-
-    </collision>
-
-  </link>
-
-
-
-  <joint name="end effector" type="revolute">
-
-    <origin xyz="0 0.106 -0.003" rpy="3.1416 0.19165 3.1416" />
-
-    <parent link="third link" />
-
-    <child link="end effector" />
-
-    <axis xyz="0 -1 0" />
-
-    <limit lower="0" upper="6.28" effort="300" velocity="3" />
-
-  </joint>
-
-
-
-  <link name="end effector">
-
-    <inertial>
-
-      <origin xyz="0 0 0" rpy="0 0 0" />
-
-      <mass value="0.0694152638900942" />
-
-      <inertia ixx="0.000121674364434895" ixy="-6.28498446862691E-19" ixz="-1.12655381984822E-19" i
+  
 
 xml
+  </joint>
 
-yy="5.0127497380721E-05" iyz="1.67712523556351E-19" izz="9.69491009898515E-05" />
-
-    </inertial>
-
+  <link name="caster_wheel_link">
     <visual>
-
-      <origin xyz="0 0 0" rpy="0 0 0" />
-
       <geometry>
-
-        <box size="0.1 0.1 0.1"/>
-
+        <sphere radius="0.05"/>
       </geometry>
-
-      <material name="blue"/>
-
+      <material name="black"/>
     </visual>
-
     <collision>
-
-      <origin xyz="0 0 0" rpy="0 0 0" />
-
       <geometry>
-
-        <box size="0.1 0.1 0.1"/>
-
+        <sphere radius="0.05"/>
       </geometry>
-
     </collision>
-
+    <xacro:inertial_sphere mass="0.1" radius="0.05">  
+      <origin xyz="0 0 0" rpy="0 0 0"/> 
+    </xacro:inertial_sphere>    
   </link>
+
+  <gazebo reference="caster_wheel_link">
+     <material>Gazebo/Black</material>
+
+  </gazebo> 
+
+
 
 </robot>
